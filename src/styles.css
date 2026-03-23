@@ -1,0 +1,679 @@
+/*
+ * styles.css — Tema Retro Blueprint
+ * ==================================
+ * Inspirasi: Dokumen resmi AQUA — biru royal + kertas putih
+ * Estetik  : Blueprint / formulir dinas retro
+ * Font     : VT323 (display) + Martian Mono (body) + Inconsolata (code/input)
+ *
+ * Palet:
+ *   --blue-500   #3B5FD4   aksen utama, tombol
+ *   --blue-100   #DDE6F5   sidebar, panel, fieldset
+ *   --paper      #FFFFFF   area konten, input
+ *   --outer      #EEF2FB   latar luar (outer background)
+ *   --navy       #1E293B   teks utama
+ *   --slate      #64748B   teks sekunder
+ *   --border     #CBD5E1   border input & panel
+ */
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Martian+Mono:wght@300;400;600&family=Inconsolata:wght@400;600&display=swap');
+
+/* ── Layer Panda CSS (harus dideklarasi sebelum @unocss) ── */
+@layer reset, base, tokens, recipes, utilities;
+
+/* ══════════════════════════════════════════════════
+   RESET & BASE
+   ══════════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 14px;
+}
+
+body {
+  /* Latar luar — biru sangat muda, seperti di referensi gambar */
+  background-color: #EEF2FB;
+
+  /* Dot-matrix pattern dengan biru muda — retro blueprint */
+  background-image:
+    radial-gradient(circle, rgba(59,95,212,0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+
+  color: #1E293B;
+  font-family: 'Martian Mono', 'Courier Prime', monospace;
+  font-size: 14px;
+  line-height: 1.75;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════════════
+   TIPOGRAFI DASAR
+   ══════════════════════════════════════════════════ */
+h1, h2, h3, h4 {
+  font-family: 'VT323', 'Courier New', monospace;
+  color: #1E3170;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 28px; }
+h3 { font-size: 22px; }
+
+p { color: #334155; line-height: 1.75; }
+
+a {
+  color: #3B5FD4;
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+strong { color: #1E3170; font-weight: 600; }
+em     { color: #3B5FD4; font-style: italic; }
+
+code {
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-size: 12.5px;
+  color: #2A47A8;
+  background: #EEF2FF;
+  border: 1px solid #BFCFED;
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   SCROLLBAR — retro blueprint style
+   ══════════════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #EEF2FB; }
+::-webkit-scrollbar-thumb {
+  background: #93AEDD;
+  border-radius: 0;          /* sudut tajam = retro */
+  border: 2px solid #EEF2FB;
+}
+::-webkit-scrollbar-thumb:hover { background: #3B5FD4; }
+
+/* ══════════════════════════════════════════════════
+   LAYOUT APLIKASI
+   Shell utama: sidebar + content area
+   ══════════════════════════════════════════════════ */
+.app-shell {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  min-height: 100vh;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  background-color: #DDE6F5;  /* biru muda sidebar dari referensi */
+  border-right: 1px solid #CBD5E1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+
+  /* Garis vertikal retro — seperti paper ruled */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 159px,
+      rgba(59,95,212,0.06) 159px,
+      rgba(59,95,212,0.06) 160px
+    );
+}
+
+.sidebar-logo {
+  padding: 0 16px 20px;
+  border-bottom: 1px solid rgba(59,95,212,0.15);
+  margin-bottom: 16px;
+}
+
+.sidebar-section-label {
+  font-family: 'Inconsolata', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #93AEDD;
+  padding: 0 16px 8px;
+}
+
+/* Navigasi item */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: 'Inconsolata', monospace;
+  font-size: 12.5px;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background: rgba(59,95,212,0.08);
+  color: #3B5FD4;
+  border-left-color: #93AEDD;
+}
+
+.nav-item.active {
+  background: rgba(59,95,212,0.12);
+  color: #3B5FD4;
+  border-left-color: #3B5FD4;
+  font-weight: 600;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  border-top: 1px solid rgba(59,95,212,0.15);
+  padding-top: 16px;
+}
+
+/* ── Area konten utama ── */
+.content-area {
+  background-color: #FFFFFF;
+  padding: 32px 40px;
+  overflow-y: auto;
+}
+
+/* ── Page header ── */
+.page-header {
+  margin-bottom: 28px;
+  border-bottom: 2px solid #EEF2FF;
+  padding-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-title {
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+  color: #1E3170;
+  letter-spacing: 1px;
+
+  /* Glow tipis biru — sentuhan retro */
+  text-shadow: 0 0 12px rgba(59,95,212,0.15);
+}
+
+.page-subtitle {
+  font-family: 'Inconsolata', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #93AEDD;
+  margin-top: 4px;
+}
+
+/* Tombol back */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inconsolata', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #64748B;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-bottom: 12px;
+  transition: color 0.12s;
+}
+.btn-back:hover { color: #3B5FD4; }
+
+/* ══════════════════════════════════════════════════
+   FORM — area form utama
+   ══════════════════════════════════════════════════ */
+.form-wrapper {
+  max-width: 640px;
+}
+
+/* Fieldset retro — panel berkotak dengan label */
+.retro-fieldset {
+  background: #F8FAFF;
+  border: 1px solid #BFCFED;
+  border-top: 2px solid #3B5FD4;  /* garis atas biru — ciri khas blueprint */
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Legend fieldset */
+.retro-fieldset legend,
+.fieldset-legend {
+  font-family: 'Inconsolata', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #3B5FD4;
+  background: #F8FAFF;
+  padding: 0 10px;
+}
+
+/* ── Field group: label + input + error ── */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.field-group:last-child { margin-bottom: 0; }
+
+/* Label field */
+.field-label {
+  font-family: 'Inconsolata', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #334155;
+}
+
+.field-label .required {
+  color: #EF4444;
+  margin-left: 2px;
+}
+
+/* ── Input, Select, Textarea ── */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
+  /* Tampilan "kertas formulir" — putih bersih */
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-left: 3px solid #BFCFED;  /* aksen kiri biru muda */
+  border-radius: 2px;
+
+  color: #1E293B;
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 9px 12px;
+
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94A3B8;
+  font-style: italic;
+}
+
+/* Fokus — border menjadi biru royal */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3B5FD4;
+  border-left-color: #3B5FD4;
+  box-shadow: 0 0 0 3px rgba(59,95,212,0.12);
+}
+
+/* Error state */
+input[data-error="true"],
+select[data-error="true"],
+textarea[data-error="true"] {
+  border-color: #EF4444;
+  border-left-color: #EF4444;
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.10);
+}
+
+/* Select dropdown arrow kustom */
+select {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%233B5FD4' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+/* ── Pesan error per field ── */
+.field-error {
+  font-family: 'Inconsolata', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #EF4444;
+  display: none;
+}
+.field-error.visible { display: block; }
+
+/* ── Grid 2 kolom untuk field sejajar ── */
+.field-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Checkbox retro ── */
+input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #CBD5E1;
+  border-left-width: 1px;   /* reset — checkbox tidak perlu border kiri tebal */
+  border-radius: 0;          /* sudut tajam = retro */
+  accent-color: #3B5FD4;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   ACTION BAR — baris tombol di bawah form
+   ══════════════════════════════════════════════════ */
+.action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #E2E8F0;
+  margin-top: 8px;
+}
+
+/* ── Status message ── */
+.status-msg {
+  flex: 1;
+  font-family: 'Inconsolata', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 7px 12px;
+  border: 1px solid;
+  border-radius: 2px;
+  display: none;
+}
+.status-msg.success {
+  display: block;
+  color: #14532D;
+  border-color: #86EFAC;
+  background: #F0FDF4;
+}
+.status-msg.error {
+  display: block;
+  color: #7F1D1D;
+  border-color: #FCA5A5;
+  background: #FEF2F2;
+}
+
+/* ══════════════════════════════════════════════════
+   TOMBOL — retro blueprint style
+   (melengkapi recipe Panda CSS di panda.config.ts)
+   ══════════════════════════════════════════════════ */
+.retro-btn,
+button.btn-primary,
+button.btn-secondary,
+button.btn-ghost {
+  font-family: 'Inconsolata', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.15s;
+  position: relative;
+}
+
+/* Tombol primer — biru royal (seperti Submit di referensi) */
+.retro-btn,
+button.btn-primary {
+  background: #3B5FD4;
+  color: #FFFFFF;
+  border: 1px solid #2A47A8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12),
+              0 2px 0 rgba(30,49,112,0.3);  /* bayangan bawah = efek tombol fisik */
+}
+.retro-btn:hover:not(:disabled),
+button.btn-primary:hover:not(:disabled) {
+  background: #2A47A8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08),
+              0 2px 0 rgba(30,49,112,0.25);
+}
+.retro-btn:active:not(:disabled),
+button.btn-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06),
+              0 1px 0 rgba(30,49,112,0.2);
+}
+
+/* Tombol sekunder */
+button.btn-secondary {
+  background: transparent;
+  color: #3B5FD4;
+  border: 1px solid #93AEDD;
+}
+button.btn-secondary:hover:not(:disabled) {
+  background: #EEF2FF;
+  border-color: #3B5FD4;
+}
+
+/* Tombol ghost */
+button.btn-ghost {
+  background: transparent;
+  color: #64748B;
+  border: 1px solid #E2E8F0;
+}
+button.btn-ghost:hover:not(:disabled) {
+  background: #F8FAFF;
+  color: #1E293B;
+  border-color: #CBD5E1;
+}
+
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ══════════════════════════════════════════════════
+   CARD — panel berisi konten
+   ══════════════════════════════════════════════════ */
+.retro-card {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-top: 2px solid #3B5FD4;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.retro-card-title {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  color: #1E3170;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #EEF2FF;
+}
+
+/* ══════════════════════════════════════════════════
+   HEADER APLIKASI
+   ══════════════════════════════════════════════════ */
+.app-header {
+  background: #FFFFFF;
+  border-bottom: 2px solid #3B5FD4;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  /* Garis retro biru di atas header */
+  box-shadow: 0 1px 4px rgba(59,95,212,0.08);
+}
+
+.app-header-title {
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  color: #3B5FD4;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(59,95,212,0.2);
+}
+
+.app-header-version {
+  font-family: 'Inconsolata', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #93AEDD;
+  border: 1px solid #BFCFED;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════════
+   BADGE / STATUS TAG
+   ══════════════════════════════════════════════════ */
+.badge {
+  display: inline-block;
+  font-family: 'Inconsolata', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: 1px solid;
+  border-radius: 0;  /* sudut tajam = retro */
+}
+.badge-blue  { color: #1E3170; border-color: #93AEDD; background: #EEF2FF; }
+.badge-green { color: #14532D; border-color: #86EFAC; background: #F0FDF4; }
+.badge-red   { color: #7F1D1D; border-color: #FCA5A5; background: #FEF2F2; }
+.badge-gray  { color: #374151; border-color: #D1D5DB; background: #F9FAFB; }
+
+/* ══════════════════════════════════════════════════
+   TABEL DATA — laporan & histori
+   ══════════════════════════════════════════════════ */
+.retro-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Inconsolata', monospace;
+  font-size: 12.5px;
+}
+
+.retro-table th {
+  background: #EEF2FF;
+  color: #1E3170;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 2px solid #3B5FD4;
+}
+
+.retro-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #E2E8F0;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.retro-table tr:hover td {
+  background: #F8FAFF;
+}
+
+/* ══════════════════════════════════════════════════
+   UTILITY CLASSES — pelengkap UnoCSS
+   ══════════════════════════════════════════════════ */
+
+/* Glow teks biru */
+.glow-blue {
+  text-shadow:
+    0 0 6px rgba(59,95,212,0.4),
+    0 0 18px rgba(59,95,212,0.15);
+}
+
+/* Label section kecil */
+.section-label {
+  font-family: 'Inconsolata', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #93AEDD;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #BFCFED, transparent);
+}
+
+/* Divider retro */
+.retro-divider {
+  border: none;
+  border-top: 1px solid #E2E8F0;
+  margin: 24px 0;
+  position: relative;
+  text-align: center;
+}
+.retro-divider::after {
+  content: '◆';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FFFFFF;
+  padding: 0 10px;
+  color: #CBD5E1;
+  font-size: 11px;
+}
+
+/* Progress bar scroll */
+#prog {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3B5FD4, #93AEDD);
+  width: 0%;
+  z-index: 9999;
+  transition: width .08s linear;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIF — layar kecil
+   ══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;   /* sembunyikan di mobile, butuh hamburger menu */
+  }
+  .content-area {
+    padding: 20px 16px;
+  }
+  .field-row-2 {
+    grid-template-columns: 1fr;
+  }
+}

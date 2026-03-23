@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./src/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=VT323&family=Martian+Mono:wght@300;400;600&family=Inconsolata:wght@400;600&display=swap"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form PDF Generator</title>
+</head>
+
+<body class="bg-terminal bg-dot-grid crt-lines min-h-screen">
+  <header class="border-b border-[#3B5FD4] px-6 py-5 flex-between">
+    <div>
+      <h1 class="font-display text-3xl text-phosphor glow-green tracking-wide">
+        FORM PDF GENERATOR
+      </h1>
+      <p class="retro-label text-[#3B5FD4] mt-1">v1.0.0 — Generator Dokumen</p>
+    </div>
+    <div id="backend-status" class="retro-label text-[#4b5563]">
+      <span id="status-dot" class="inline-block w-2 h-2 rounded-full bg-[#374151] mr-2"></span>
+      BACKEND
+    </div>
+  </header>
+  <main class="max-w-2xl mx-auto px-6 py-8">
+    <fieldset class="retro-panel border mb-6 p-5">
+      <legend class="retro-label text-phosphor px-2">
+        [ DATA IDENTITAS ]
+      </legend>
+      <div class="field-group">
+        <label for="f-nama" class="retro-label text-[#22d3ee]">
+          NAMA LENGKAP <span class="text-[#ef4444]">*</span>
+        </label>
+        <!-- class="retro-input" dari Panda CSS recipe -->
+        <input id="f-nama" type="text" class="retro-input" placeholder="Masukkan nama lengkap..." autocomplete="name"
+          required>
+        <!-- Pesan error muncul di sini jika validasi gagal -->
+        <span class="retro-label text-[#ef4444] hidden" id="err-nama"></span>
+      </div>
+      <div class="field-group">
+        <label for="f-nip" class="retro-label text-[#22d3ee]">
+          NIP / NOMOR IDENTITAS <span class="text-[#ef4444]">*</span>
+        </label>
+        <input id="f-nip" type="text" class="retro-input" placeholder="Hanya angka, 10–20 digit" inputmode="numeric"
+          maxlength="20" required>
+        <span class="retro-label text-[#ef4444] hidden" id="err-nip"></span>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="field-group">
+          <label for="f-tanggal" class="retro-label text-[#22d3ee]">TANGGAL</label>
+          <input id="f-tanggal" type="date" class="retro-input">
+        </div>
+        <div class="field-group">
+          <label for="f-jabatan" class="retro-label text-[#22d3ee]">JABATAN</label>
+          <input id="f-jabatan" type="text" class="retro-input" placeholder="Jabatan / posisi...">
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="retro-panel border mb-6 p-5">
+      <legend class="retro-label text-phosphor px-2">
+        [ ISI DOKUMEN ]
+      </legend>
+
+      <div class="field-group">
+        <label for="f-judul" class="retro-label text-[#22d3ee]">
+          JUDUL DOKUMEN <span class="text-[#ef4444]">*</span>
+        </label>
+        <input id="f-judul" type="text" class="retro-input" placeholder="Judul yang muncul di PDF..." required>
+        <span class="retro-label text-[#ef4444] hidden" id="err-judul"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="f-isi" class="retro-label text-[#22d3ee]">ISI DOKUMEN</label>
+        <!-- textarea juga pakai class retro-input dari Panda CSS -->
+        <textarea id="f-isi" class="retro-input" rows="6" placeholder="Tulis isi dokumen di sini..."></textarea>
+      </div>
+
+      <!-- Checkbox opsi tambahan -->
+      <div class="flex gap-6">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="f-header" checked class="retro-checkbox">
+          <span class="retro-label text-[#9ca3af]">Sertakan header</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="f-nomor" checked class="retro-checkbox">
+          <span class="retro-label text-[#9ca3af]">Nomor halaman</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <!-- ── Action Bar ── -->
+    <div class="flex-between flex-wrap gap-3">
+      <!-- Status message: loading / sukses / error -->
+      <div id="status-msg" class="retro-label hidden flex-1"></div>
+
+      <div class="flex gap-3">
+        <!-- class="retro-btn retro-btn--secondary" dari Panda CSS -->
+        <button id="btn-reset" type="button" class="retro-btn retro-btn--secondary">
+          RESET
+        </button>
+        <!-- Tombol utama — class default primary -->
+        <button id="btn-generate" type="button" class="retro-btn">
+          ▶ GENERATE PDF
+        </button>
+      </div>
+    </div>
+
+
+  </main>
+  <script type="module" src="/src/main.ts" defer></script>
+</body>
+
+</html>
